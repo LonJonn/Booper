@@ -1,12 +1,19 @@
 {
-  "name": "hit-that",
-  "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+	"name": "hit-that",
+	"version": "1.0.0",
+	"description": "",
+	"main": "main.js",
+	"scripts": {
+		"dev": "rm -rf .cache dist && parcel src/main.js",
+		"build": "rm -rf .cache dist && parcel src/build main.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"fuse.js": "^6.3.1"
+	},
+	"devDependencies": {
+		"parcel-bundler": "^1.12.4"
+	}
 }
