@@ -11,8 +11,11 @@ import {
  *
  * Finds all the currently visible button/boop nodes
  */
-export function getVisibleNodes() {
-	let nodes = [...document.querySelectorAll("[role='button']")];
+export function getVisibleNodes(): CleanedElement[] {
+	let nodes = [
+		...document.querySelectorAll("[role='button']"),
+		...document.querySelectorAll("button"),
+	];
 
 	// prettier-ignore
 	return nodes
