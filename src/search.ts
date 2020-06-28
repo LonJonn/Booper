@@ -1,17 +1,12 @@
 import Fuse from "fuse.js";
-import {
-	nodeIsVisible,
-	cleanNodeText,
-	removeRelatedButtons,
-	CleanedElement,
-} from "./utils";
+import { nodeIsVisible, removeRelatedButtons } from "./utils";
 
 /**
  * Will run every mount.
  *
  * Finds all the currently visible button/boop nodes
  */
-export function getVisibleNodes(): CleanedElement[] {
+export function getVisibleNodes(): HTMLElement[] {
 	let nodes = [
 		...document.querySelectorAll("[role='button']"),
 		...document.querySelectorAll("button"),
@@ -20,7 +15,7 @@ export function getVisibleNodes(): CleanedElement[] {
 	// prettier-ignore
 	return nodes
 		.filter(nodeIsVisible)
-		.map(cleanNodeText)
+		// .map(cleanNodeText)
 		.reduce(removeRelatedButtons, []);
 }
 
@@ -30,9 +25,9 @@ export function getVisibleNodes(): CleanedElement[] {
  * @param nodes HTML Elements to search through
  * @param query Query to search by
  */
-export function search(nodes: CleanedElement[], query: string) {
+export function search(nodes: HTMLElement[], query: string) {
 	const fuse = new Fuse(nodes, {
-		keys: ["cleanText"],
+		keys: ["textContent"],
 		includeScore: true,
 		includeMatches: true,
 	});
@@ -45,7 +40,7 @@ export function search(nodes: CleanedElement[], query: string) {
  *
  * @param results HTML Element search results
  */
-export function applyStyles(results: Fuse.FuseResult<CleanedElement>[]) {
+export function applyStyles(results: Fuse.FuseResult<HTMLElement>[]) {
 	for (const result of results) {
 		const node = result.item;
 		node.style.outline = "solid 3px yellow";
@@ -58,7 +53,7 @@ export function applyStyles(results: Fuse.FuseResult<CleanedElement>[]) {
  *
  * @param results HTML Element search results
  */
-export function clearStyles(results: Fuse.FuseResult<CleanedElement>[]) {
+export function clearStyles(results: Fuse.FuseResult<HTMLElement>[]) {
 	for (const result of results) {
 		const node = result.item;
 		node.style.outline = "";

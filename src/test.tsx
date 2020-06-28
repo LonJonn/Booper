@@ -50,6 +50,8 @@ const App: React.FC<AppProps> = ({ hide }) => {
 
 	// List navigation with arrowkeys
 	const handleInput: React.KeyboardEventHandler = (e) => {
+		if (results.length === 0) return;
+
 		if (e.key === "ArrowUp") {
 			e.preventDefault();
 			const newSelected =
@@ -91,20 +93,16 @@ const App: React.FC<AppProps> = ({ hide }) => {
 					size="small"
 					placeholder="Search boop by text"
 					autoFocus
+					value={query}
 					onKeyDown={handleInput}
 					onChange={(e) => setQuery(e.target.value)}
-					value={query}
+					onBlur={hide}
 				/>
 			</form>
 			<List component="nav">
 				{results.map((result, idx) => (
-					<ListItem
-						key={idx}
-						button
-						selected={selected === idx}
-						onClick={() => setSelected(idx)}
-					>
-						<ListItemText primary={result.item.cleanText} />
+					<ListItem key={idx} button selected={selected === idx}>
+						<ListItemText primary={result.item.textContent} />
 					</ListItem>
 				))}
 			</List>
@@ -113,7 +111,13 @@ const App: React.FC<AppProps> = ({ hide }) => {
 				color="textSecondary"
 				align="center"
 			>
-				Showing <b>{results.length}</b> of <b>{nodes.length}</b>
+				{results.length > 0 ? (
+					<>
+						Showing <b>{results.length}</b> of <b>{nodes.length}</b>
+					</>
+				) : (
+					<> No boops found 😢 </>
+				)}
 			</Typography>
 		</Box>
 	);
@@ -125,7 +129,7 @@ const Wrap = () => {
 	return (
 		<>
 			{visible && <App hide={() => setVisible(false)} />}
-			<button onClick={() => setVisible((s) => !s)}>toggle</button>
+			<button onClick={() => setVisible((v) => !v)}>toggle</button>
 			<button onClick={() => console.log("weeee!")}>woggle</button>
 		</>
 	);

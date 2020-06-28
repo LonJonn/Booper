@@ -1,12 +1,4 @@
 /**
- * A modified interface that extends the generic `HTMLElement`
- * interface to include the `cleanText` property
- */
-export interface CleanedElement extends HTMLElement {
-	cleanText?: string;
-}
-
-/**
  * Checks whether a particular HTML Element is visible.
  *
  * @param node HTML Element to check
@@ -19,19 +11,6 @@ export function nodeIsVisible(node: HTMLElement) {
 		!node.textContent.trim();
 
 	return !nodeNotVisible;
-}
-
-/**
- * Santise the text content of a HTML element and
- * store it's value onto a new `cleanText` property.
- *
- * @param node HTML Element to clean
- * @returns The cleaned HTML Element
- */
-export function cleanNodeText(node: CleanedElement) {
-	node.cleanText = node.textContent.trim().toLowerCase();
-
-	return node;
 }
 
 /**
