@@ -38,6 +38,11 @@ const App: React.FC<AppProps> = ({ hide }) => {
 			: nodes.map((node) => ({ item: node }))
 	), [query]);
 
+	// Reset cursor to top if out of index
+	React.useEffect(() => {
+		if (selected > results.length - 1) setSelected(0);
+	}, [results, selected]);
+
 	// Highlight current selection
 	React.useEffect(() => {
 		const selectedNode = results[selected].item;
