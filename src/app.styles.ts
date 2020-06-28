@@ -9,6 +9,8 @@ export const useStyles = makeStyles((theme: Theme) =>
 			width: width,
 			top: "15vh",
 			left: `calc(50vw - calc(${width}px / 2))`,
+			zIndex: 999999999999,
+			backgroundColor: theme.palette.background.default,
 		},
 		form: {
 			padding: theme.spacing(0, 2, 2),

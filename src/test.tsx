@@ -46,10 +46,12 @@ const App: React.FC<AppProps> = ({ hide }) => {
 	// Highlight current selection
 	React.useEffect(() => {
 		const selectedNode = results[selected].item;
-		selectedNode.style.outline = "5px solid yellow";
+		selectedNode.style.zIndex = "999999999";
+		selectedNode.style.boxShadow = "0 0 0 9999999px rgba(0, 0, 0, 0.7)";
 
 		return () => {
-			selectedNode.style.outline = "";
+			selectedNode.style.zIndex = "";
+			selectedNode.style.boxShadow = "";
 		};
 	}, [selected]);
 
