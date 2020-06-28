@@ -34,28 +34,3 @@ export function search(nodes: HTMLElement[], query: string) {
 
 	return fuse.search(query);
 }
-
-/**
- * Highlight HTML Elements
- *
- * @param results HTML Element search results
- */
-export function applyStyles(results: Fuse.FuseResult<HTMLElement>[]) {
-	for (const result of results) {
-		const node = result.item;
-		node.style.outline = "solid 3px yellow";
-	}
-}
-
-/**
- * Undo style changes performed on HTML Elements
- * by the `applyStyles` function.
- *
- * @param results HTML Element search results
- */
-export function clearStyles(results: Fuse.FuseResult<HTMLElement>[]) {
-	for (const result of results) {
-		const node = result.item;
-		node.style.outline = "";
-	}
-}
