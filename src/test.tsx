@@ -30,14 +30,23 @@ const App: React.FC<AppProps> = ({ hide }) => {
 	const [query, setQuery] = React.useState("");
 	const [selected, setSelected] = React.useState(0);
 
+	// prettier-ignore
 	// Whenever search changes, re-filter
-	const results = React.useMemo(() => {
-		return query
+	const results = React.useMemo(() => (
+		query
 			? search(nodes, query)
-			: nodes.map((node) => ({
-					item: node,
-			  }));
-	}, [query]);
+			: nodes.map((node) => ({ item: node }))
+	), [query]);
+
+	// Highlight current selection
+	React.useEffect(() => {
+		const selectedNode = results[selected].item;
+		selectedNode.style.outline = "5px solid yellow";
+
+		return () => {
+			selectedNode.style.outline = "";
+		};
+	}, [selected]);
 
 	// List navigation with arrowkeys
 	const handleInput: React.KeyboardEventHandler = (e) => {
@@ -51,6 +60,9 @@ const App: React.FC<AppProps> = ({ hide }) => {
 			const newSelected =
 				selected < results.length - 1 ? selected + 1 : 0;
 			setSelected(newSelected);
+		} else if (e.key === "Escape") {
+			e.preventDefault();
+			hide();
 		}
 	};
 
